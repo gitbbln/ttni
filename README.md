@@ -1,5 +1,5 @@
 # ttni
-get function name  from stacktrace 
+get function name  from stacktrace! 
 <br>
 sample fn: 'testExit '
 ``` javascript
