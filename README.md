@@ -1,8 +1,16 @@
 # ttni
-get function name  from stacktrace! 
-<br>
-sample fn: 'testExit '
-``` javascript
+
+get function name  from stacktrace
+
+## NPM
+
+```sh
+npm install ttni
+```
+
+### JavaScript
+
+```js
 import { TTNI } from './ttni'
 let ttni = new TTNI();
 let ni = ttni.ni.bind(ttni);
@@ -83,13 +91,9 @@ function testExit(...nu: any) {
 
 }
 testExit(['exit no', true]);
-```
-**console.log:**
-</br>
-```
-->testExit(exit no,true);
-getError { fn: 'testExit ', caller:<Object.anonymous> }
-<-testExit()
-```
-               
+ttni.shTimer();
 
+
+
+
+```

@@ -1,7 +1,7 @@
 {
   "name": "ttni",
-  "version": "1.0.2",
-  "description": "",
+  "version": "1.0.4",
+  "description": "get function name from stacktrace",
   "main": "./dist/index.js",
   "types": ".npm/dist/index.d.ts",
   "scripts": {
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitbbln/my-awesome-greeter.git"
+    "url": "git+https://github.com/gitbbln/ttni.git"
   },
   "keywords": [],
   "author": "bbln",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gitbbln/my-awesome-greeter/issues"
+    "url": "https://github.com/gitbbln/ttni/issues"
   },
-  "homepage": "https://github.com/gitbbln/my-awesome-greeter#readme",
+  "homepage": "https://github.com/gitbbln/ttni#readme",
   "devDependencies": {
     "typescript": "^4.7.4"
   }
