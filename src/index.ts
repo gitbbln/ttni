@@ -363,6 +363,7 @@ export class TTNI {
 
   }
   ni(args: any) {
+    if (this.bShowTimer) this.ts = new Date();
     if (args) {
       if (this)
         if (args[0] == this.fn) {
@@ -380,11 +381,17 @@ export class TTNI {
 
     this.getError = this.getFunctionName(new Error())
     this.nu(-1, this.getError, args);
+    if (this.bShowTimer) this.te = new Date();
   };
 
 
   shSuffix() {
     //this.getError = this.getFunctionName(new Error())
     console.log('getError', this.getError);
+  }
+  shTimer ()  {
+      if (this.bShowTimer) {
+        console.log(":" + (this.te.getTime() - this.ts.getTime()) + " ms");
+      }
   }
 }
