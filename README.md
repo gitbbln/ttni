@@ -1,3 +1,8 @@
+# ttni
+get function name  from stacktrace! 
+<br>
+sample fn: 'testExit '
+``` javascript
 import { TTNI } from './ttni'
 let ttni = new TTNI();
 let ni = ttni.ni.bind(ttni);
@@ -67,12 +72,9 @@ const test2 = () => {
 
 const p1 = new Test1Class();
 //const p = new Test2Class();
-//p1.test2()
-//test5();
 
-
-const test6 = (s: string, b: boolean) => {
-  ni([s, b])
+function testExit(...nu: any) {
+  ni(nu)
   ttni.shSuffix();
 
   //process.exit()
@@ -80,18 +82,6 @@ const test6 = (s: string, b: boolean) => {
   ne()
 
 }
-<<<<<<< HEAD
-
-function testExit(s: string, b: boolean) {
-  ni(arguments)
-  ttni.shSuffix();
-  test6('exit no', true);
-  process.exit()
-
-  ne()
-
-}
-testExit('exit yes', true);
 testExit(['exit no', true]);
 ```
 **console.log:**
@@ -102,16 +92,4 @@ getError { fn: 'testExit ', caller:<Object.anonymous> }
 <-testExit()
 ```
                
-=======
->>>>>>> ee0f26642c92426010621efa23ee5b0f42b0b02d
 
-function testExit(s: string, b: boolean) {
-  ni(arguments)
-  ttni.shSuffix();
-  test6('exit no', true);
-  process.exit()
-
-  ne()
-
-}
-testExit('exit yes', true);
