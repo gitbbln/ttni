@@ -80,6 +80,7 @@ const test6 = (s: string, b: boolean) => {
   ne()
 
 }
+<<<<<<< HEAD
 
 function testExit(s: string, b: boolean) {
   ni(arguments)
@@ -101,4 +102,16 @@ getError { fn: 'testExit ', caller:<Object.anonymous> }
 <-testExit()
 ```
                
+=======
+>>>>>>> ee0f26642c92426010621efa23ee5b0f42b0b02d
 
+function testExit(s: string, b: boolean) {
+  ni(arguments)
+  ttni.shSuffix();
+  test6('exit no', true);
+  process.exit()
+
+  ne()
+
+}
+testExit('exit yes', true);
