@@ -51,4 +51,5 @@ export declare class TTNI {
     ni(args: any): void;
     ne(args: any): void;
     shSuffix(): void;
+    shTimer(): void;
 }

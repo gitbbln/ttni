@@ -18,7 +18,7 @@ let ne = ttni.ne.bind(ttni);
 
 
 ttni.logs = { test0: true, test1: !true }
-Object.assign(ttni, { bHtml: false, bCaller: false, bTrace: true, logs: undefined, maxColorsLevel: 4 })
+Object.assign(ttni, { bHtml: false, bShowTimer: true, bCaller: false, bTrace: true, logs: undefined, maxColorsLevel: 4 });
 
 class Test2Class {
   test3() {
@@ -93,7 +93,11 @@ function testExit(...nu: any) {
 testExit(['exit no', true]);
 ttni.shTimer();
 
-
-
-
 ```
+# console.log:
+```js
+ ->testExit(exit no,true)
+getError { fn: 'testExit ', caller: 'ModuleJob.run ' }
+  <-testExit()
+:47 ms
+  ```
