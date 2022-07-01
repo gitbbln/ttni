@@ -72,9 +72,12 @@ const test2 = () => {
 
 const p1 = new Test1Class();
 //const p = new Test2Class();
+//p1.test2()
+//test5();
 
-function testExit(...nu: any) {
-  ni(nu)
+
+const test6 = (s: string, b: boolean) => {
+  ni([s, b])
   ttni.shSuffix();
 
   //process.exit()
@@ -82,14 +85,14 @@ function testExit(...nu: any) {
   ne()
 
 }
-testExit(['exit no', true]);
-```
-**console.log:**
-</br>
-```
-->testExit(exit no,true);
-getError { fn: 'testExit ', caller:<Object.anonymous> }
-<-testExit()
-```
-               
 
+function testExit(s: string, b: boolean) {
+  ni(arguments)
+  ttni.shSuffix();
+  test6('exit no', true);
+  process.exit()
+
+  ne()
+
+}
+testExit('exit yes', true);
