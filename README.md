@@ -1,8 +1,3 @@
-# ttni
-get function name  from stacktrace! 
-<br>
-sample fn: 'testExit '
-``` javascript
 import { TTNI } from './ttni'
 let ttni = new TTNI();
 let ni = ttni.ni.bind(ttni);
@@ -72,9 +67,12 @@ const test2 = () => {
 
 const p1 = new Test1Class();
 //const p = new Test2Class();
+//p1.test2()
+//test5();
 
-function testExit(...nu: any) {
-  ni(nu)
+
+const test6 = (s: string, b: boolean) => {
+  ni([s, b])
   ttni.shSuffix();
 
   //process.exit()
@@ -82,6 +80,17 @@ function testExit(...nu: any) {
   ne()
 
 }
+
+function testExit(s: string, b: boolean) {
+  ni(arguments)
+  ttni.shSuffix();
+  test6('exit no', true);
+  process.exit()
+
+  ne()
+
+}
+testExit('exit yes', true);
 testExit(['exit no', true]);
 ```
 **console.log:**
