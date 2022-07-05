@@ -1,6 +1,6 @@
 {
   "name": "ttni",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "get function name from stacktrace",
   "main": "./dist/index.js",
   "types": ".npm/dist/index.d.ts",

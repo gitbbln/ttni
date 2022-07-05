@@ -155,26 +155,35 @@ class TTNI {
         return ai;
     }
     getFunctionName(e, ...args) {
-        let file_arr;
+        let input;
         let items;
+        items = { file: '*FILENAME UNDEFINED*', fn: '*FUNCTION UNDEFINED*', caller: '*CALLER UNDEFINED*' };
         this.stack = e.stack;
         let regexp = /at (.*?)\(/g;
         let result;
         let fn_arr = [];
+        let input_arr;
+        let i = 0;
         while ((result = regexp.exec(this.stack)) !== null) {
-            fn_arr.push(result[1]);
+            if (i == 0) {
+                input_arr = result[2];
+            }
+            i++;
         }
-        file_arr = (this.stack.split('at ')[3].split('js'));
-        fn_arr = fn_arr.reverse();
-        fn_arr.pop();
-        file_arr = (this.stack.split('at ')[3].split('.js'));
-        file_arr.pop();
-        file_arr.push('js');
-        items = {
-            fn: fn_arr.pop(),
-            caller: fn_arr.pop(),
-            file: file_arr.join('.')
-        };
+        if (input_arr)
+            console.log('input_arr=', input_arr);
+        return items;
+        if (input != null) {
+            result = regexp.exec(input);
+        }
+        ;
+        if (result != null) {
+            items = {
+                fn: result.pop(),
+                caller: result.pop(),
+                file: result.pop()
+            };
+        }
         return items;
     }
     dsp() {

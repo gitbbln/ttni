@@ -27,6 +27,7 @@ export declare class TTNI {
     nsp: number;
     plugin: object;
     ps: string;
+    stack: string;
     sError: string;
     s: string;
     private te;
@@ -50,6 +51,8 @@ export declare class TTNI {
     nu(a: number, getError: TItems, p: any): void;
     ni(args: any): void;
     ne(args: any): void;
-    shSuffix(): void;
+    shAt(): void;
+    shStack(): void;
     shTimer(): void;
+    Timer(): number;
 }

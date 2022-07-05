@@ -79,6 +79,7 @@ export class TTNI {
   plugin: object;
   ps: string;
 
+  stack: string;
   sError: string;
   s: string = "";
 
@@ -114,7 +115,6 @@ export class TTNI {
 
   // minus 60 no bright color for fg and bg
   fg: TColors = {
-
     Red: 91,
     Green: 92,
     Yellow: 93,
@@ -124,7 +124,6 @@ export class TTNI {
     White: 97,
   };
   bg: TColors = {
-
     Red: 101,
     Green: 102,
     Yellow: 103,
@@ -225,29 +224,32 @@ export class TTNI {
 
   getFunctionName(e: Error, ...args: any[]): TItems {
     //console.log('args',args);
-
+    let file_arr:string[];
     let items: TItems;
-    let stackTrace = e.stack as string;
+    this.stack = e.stack as string;
 
     let regexp = /at (.*?)\(/g
-    //console.log('stackTrace=',stackTrace);
+    //console.log('stack=',stack);
     let result;
     let fn_arr: string[] = [];
-    while ((result = regexp.exec(stackTrace)) !== null) {
+
+    while ((result = regexp.exec(this.stack)) !== null) {
       //console.log('===', result[1])
       fn_arr.push(result[1]);
     }
 
-
-    ; // [object RegExp String Iterator], не массив, а перебираемый объект
-
-
+    file_arr=(this.stack.split('at ')[3].split('js'));
     fn_arr = fn_arr.reverse();
     //console.log('reverse', fn_arr)
     fn_arr.pop()
+    file_arr = (this.stack.split('at ')[3].split('.js'));
+    file_arr.pop();
+    file_arr.push('js');
+    
     items = {
       fn: fn_arr.pop() as string,
       caller: fn_arr.pop() as string,
+      file:file_arr.join('.')
     }
 
     //console.log('===', items)
@@ -385,13 +387,20 @@ export class TTNI {
   };
 
 
-  shSuffix() {
+  shAt() {
     //this.getError = this.getFunctionName(new Error())
-    console.log('getError', this.getError);
+    console.log('items at:', this.getError);
   }
-  shTimer ()  {
-      if (this.bShowTimer) {
-        console.log(":" + (this.te.getTime() - this.ts.getTime()) + " ms");
-      }
+  shStack() {
+    //this.getError = this.getFunctionName(new Error())
+    console.log('stack=', this.stack);
+  }
+  shTimer() {
+    if (this.bShowTimer) {
+      console.log(":" + this.Timer() + " ms");
+    }
+  }
+  Timer(): number {
+    return (this.te.getTime() - this.ts.getTime());
   }
 }
