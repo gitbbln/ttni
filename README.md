@@ -1,4 +1,4 @@
-# ttni
+# ttni 1.0.5
 
 get function name  from stacktrace
 
@@ -7,11 +7,18 @@ get function name  from stacktrace
 ```sh
 npm install ttni
 ```
+### JavaScript for node
 
-### JavaScript
+```js 
+import { TTNI } from 'ttni'
+```
+### JavaScript for web (with  "live-server") 
 
-```js
-import { TTNI } from './ttni'
+```js 
+import { TTNI } from './node_modules/ttni/dist/index.js'
+```
+
+```js  
 let ttni = new TTNI();
 let ni = ttni.ni.bind(ttni);
 let ne = ttni.ne.bind(ttni);

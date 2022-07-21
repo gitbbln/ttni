@@ -14,7 +14,6 @@ export declare class TTNI {
     bConsole: boolean;
     colorPlugin: string;
     colorReset: string;
-    codColor: string;
     colorError: string;
     comma: string;
     close: string;

@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
+    "target": "ESnext",
     "module": "commonjs",
-    "declaration": true,
+    /*"target": "ES2017",
+    "target": "ES2020",
+    "target": "es2015",
+    "module": "es2015",*/
     "outDir": "./dist",
     "strictPropertyInitialization": false,
     "moduleResolution": "node",
@@ -19,7 +22,6 @@
     "inlineSources": true,
     "declaration": true,
     "skipLibCheck": true,
-
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]

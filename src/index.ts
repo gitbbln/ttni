@@ -1,30 +1,10 @@
-/*
- ** "-"" NotBright ,"_" Background
- */
-/*let TTNI = {};
-const myWorker
-if (Worker) myWorker = new Worker("worker.js");
-else const {
-  Worker
-} = require('worker_threads')
-
-if (window.Worker) {
-
-
-  this.myWorker = myWorker;
-
-};
-*/
-//type MA<T, TMultiArray extends T[][]>=<T, TMultiArray extends T[][]>;
-
 import type { TItems, TLevels, TColors, TLogs, TObj } from './ttni';
 export class TTNI {
-
   private colorWarning: TLevels = {
     error: "R Y",
     1: "B Y",
     2: "G R",
-    watch: "Y G",
+    watch: "R G",
     4: "M W",
     5: "C Y",
     6: "W R",
@@ -56,9 +36,8 @@ export class TTNI {
   bConsole: boolean = true;
 
 
-  colorPlugin: string = '*colorPlugin*'
+  colorPlugin: string = 'R Y'
   colorReset: string = "";
-  codColor: string = 'undefined';
   colorError: string;
   comma = ";";
   close: string;
@@ -166,16 +145,16 @@ export class TTNI {
     let attrs_arr: string[];
     let pair_arr: string[];
     let pairBright_arr: string[];
-    if (colors != undefined) {
+    if (colors) {
       colors_arr = colors.split(" ");
       //console.log(colors_arr)
     }
 
-    if (fn != undefined) s = this.ESC + this.fg.R + this.m + fn;
+    if (fn) s = this.ESC + this.fg.R + this.m + fn;
     if (arr)
       arr.forEach((item, index, arr) => {
         let k: string = colors_arr[index];
-        if (k != undefined) {
+        if (k) {
           token_arr = k.split('/');
           if (token_arr.length > 1) attrs_arr = token_arr[1].split(";");
           else attrs_arr = [];
@@ -183,7 +162,7 @@ export class TTNI {
           fg = pair_arr[pair_arr.length - 1].toUpperCase();
           (pair_arr.length > 1) ? bg = pair_arr[0]: bg = undefined;
           //console.log(pair_arr);
-          if (bg != undefined) {
+          if (bg) {
             bg = bg.toUpperCase();
             pairBright_arr = bg.split("-");
             bg = pairBright_arr[pairBright_arr.length - 1]
@@ -196,7 +175,7 @@ export class TTNI {
           fgNotBright = (pairBright_arr.length > 1);
 
           //console.log('pairBright_arr=', fg, fgNotBright);
-          (bg == undefined) ? sbg = "": sbg = ";" + this.ifBright(bgNotBright, this.bg[bg]);
+          (!bg) ? sbg = "": sbg = ";" + this.ifBright(bgNotBright, this.bg[bg]);
           s += this.ESC + this.ifBright(fgNotBright, this.fg[fg]) + sbg;
           attrs_arr.forEach((atr, index, arr) => {
             //console.log(`'${atr}'`,this.atr[atr])
@@ -213,7 +192,6 @@ export class TTNI {
     return s;
   }
 
-
   removeVowels(input: string) {
     let a0 = input[0]
     let ai = input.substr(1, input.length - 1);
@@ -224,12 +202,14 @@ export class TTNI {
 
   getFunctionName(e: Error, ...args: any[]): TItems {
     //console.log('args',args);
-    let file_arr:string[];
+    let path: string;
+    let path_arr: string[];
+    let file_arr: string[];
     let items: TItems;
+    let item: string;
     this.stack = e.stack as string;
 
     let regexp = /at (.*?)\(/g
-    //console.log('stack=',stack);
     let result;
     let fn_arr: string[] = [];
 
@@ -238,23 +218,28 @@ export class TTNI {
       fn_arr.push(result[1]);
     }
 
-    file_arr=(this.stack.split('at ')[3].split('js'));
+    file_arr = (this.stack.split('at ')[3].split('js'));
     fn_arr = fn_arr.reverse();
     //console.log('reverse', fn_arr)
     fn_arr.pop()
     file_arr = (this.stack.split('at ')[3].split('.js'));
     file_arr.pop();
     file_arr.push('js');
-    
+    path = file_arr.join('.');
+    path_arr = path.split('/');
+    this.fileName = path_arr[path_arr.length - 1];
     items = {
       fn: fn_arr.pop() as string,
       caller: fn_arr.pop() as string,
-      file:file_arr.join('.')
+      path: path,
+      file: this.fileName,
     }
+    for (let key in items) {
+      item = items[key];
+      if (item) item = item.trim();
 
-    //console.log('===', items)
-    return items
-
+    }
+    return items;
   }
 
   dsp(): string {
@@ -267,13 +252,12 @@ export class TTNI {
   }
 
   nu(a: number, getError: TItems, p: any) {
-
     const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length;
     let level: number;
     let fn: string = "";
     let sfn: string = "";
     let arr_fn: string[];
-    if (getError != undefined) {
+    if (getError) {
 
       arr_fn = (getError.fn.trim().split('.'));
       fn = arr_fn[arr_fn.length - 1];
@@ -286,27 +270,12 @@ export class TTNI {
     let a6: string = "->";
     let a4: string = "<-";
     let dx: string;
-    let e_fileName: object;
     let sError: string;
     let s_fileName: string;
-    if (this.maxColorsLevel > 7) this.maxColorsLevel = 7;
-    else if (this.maxColorsLevel < 1) this.maxColorsLevel = 1;
-    if (this.fileName != undefined) {
+    if (this.fileName) {
       //console.log('this.fileName=', this.fileName)
       let name: string[] = this.fileName.split('_');
       if (name.length > 1) this.fileName = this.removeVowels(name[0]) + '_' + name[1];
-
-      e_fileName = this.dsp2[this.fileName];
-
-      //      console.log('e_fileName=', e_fileName)
-      if (e_fileName == undefined) {
-        this.dsp2[this.fileName] = {}
-        e_fileName = this.dsp2[this.fileName];
-
-        if (e_fileName == undefined) {
-          s_fileName = "";
-        }
-      }
     }
     if (a > 0) ak = a6;
     else if (a < 0) ak = a4;
@@ -314,7 +283,7 @@ export class TTNI {
 
     if (this.bShowTimer) this.te = new Date();
     //console.log('p=',p)
-    if (p == undefined) {
+    if (!p) {
       p = [];
       p[0] = ""
     };
@@ -323,22 +292,15 @@ export class TTNI {
       if (i < p.length - 1) s += ',';
     }
     s += ')'
-    //if (s != "#") {
     if (a > 0) this.nsp++;
 
     sError = this.dsp() + ak + sfn;
-    //console.log('fn=',`'${fn}'`);
     level = (this.nsp % this.maxColorsLevel) + 1;
     //console.log('level=',`${level}`,this.colorLevel[level]);
-    if (this.bTrace && (this.logs == undefined || (isEmpty(this.logs) || this.logs.ALL || this.logs[fn] && !this.logs.ALL))) this.log(this.msg("", [sError, s], this.colorLevel[level]), );
-    //myWorker.postMessage(sError + s);
-
-
+    if (this.bTrace && (!this.logs || (isEmpty(this.logs) || this.logs.ALL || this.logs[fn] && !this.logs.ALL))) this.log(this.msg("", [sError, s], this.colorLevel[level]), );
     if (!this.bLogsIgnore) {
-      if (this.logs != undefined) {
-        //if (this.bTrace)  console.log('_logs.fileName=', _logs.fileName);
-        if (this.logs[this.fn] != undefined) {
-          //console.log('>>>>>>>>this.logs[' + this.fn + ']=', this.logs[this.fn].TTNI);
+      if (this.logs) {
+        if (this.logs[this.fn]) {
           if (this.logs[this.fn]) {
 
             if (this.bTrace) console.log(this.colorPlugin + this.fileName + " ::1:TTNI[" + this.fn + "]:: " + sError + s + this.colorReset);
@@ -349,8 +311,7 @@ export class TTNI {
       }
     } else {
       if (!this.bLogsIgnore) {
-        //console.log('_plugin.fileName=', "'" + _plugin.fileName + "'");
-        if (this.fileName == undefined) {
+        if (!this.fileName) {
           this.fileName = "";
         }
         if (this.bTrace) console.log(this.colorPlugin, this.fileName, " ::3:TTNI:: this.bLogsIgnore[" + this.bLogsIgnore + "] " + sError + s + this.colorReset);
@@ -361,8 +322,6 @@ export class TTNI {
       if (this.nsp < 0) this.nsp = 0;
 
     }
-
-
   }
   ni(args: any) {
     if (this.bShowTimer) this.ts = new Date();
@@ -374,8 +333,6 @@ export class TTNI {
     }
     this.getError = this.getFunctionName(new Error());
 
-    //if (this.fileName == 'props_trv') console.log('dsp2=', dsp2.props_trv.main);
-
     this.nu(1, this.getError, args);
   };
 
@@ -385,7 +342,6 @@ export class TTNI {
     this.nu(-1, this.getError, args);
     if (this.bShowTimer) this.te = new Date();
   };
-
 
   shAt() {
     //this.getError = this.getFunctionName(new Error())
