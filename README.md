@@ -14,16 +14,12 @@ import { TTNI } from 'ttni'
 ```
 ### JavaScript for web (with  "live-server") 
 
-<<<<<<< HEAD
 ```js 
 import { TTNI } from './node_modules/ttni/dist/index.js'
 ```
 
 ```js  
-=======
-```js
 import { TTNI } from 'ttni'
->>>>>>> 85d106f69af14236a0b985e3ed4b5670ea53c62d
 let ttni = new TTNI();
 let ni = ttni.ni.bind(ttni);
 let ne = ttni.ne.bind(ttni);
