@@ -14,18 +14,23 @@ import { TTNI } from 'ttni'
 ```
 ### JavaScript for web (with  "live-server") 
 
+<<<<<<< HEAD
 ```js 
 import { TTNI } from './node_modules/ttni/dist/index.js'
 ```
 
 ```js  
+=======
+```js
+import { TTNI } from 'ttni'
+>>>>>>> 85d106f69af14236a0b985e3ed4b5670ea53c62d
 let ttni = new TTNI();
 let ni = ttni.ni.bind(ttni);
 let ne = ttni.ne.bind(ttni);
 
 
 ttni.logs = { test0: true, test1: !true }
-Object.assign(ttni, { bHtml: false, bShowTimer: true, bCaller: false, bTrace: true, logs: undefined, maxColorsLevel: 4 });
+Object.assign(ttni, { bHtml: false, bShowTimer: true, bCaller: false, bTrace: true, logs: undefined, maxColorsLevel: 4 })
 
 class Test2Class {
   test3() {
@@ -88,9 +93,9 @@ const test2 = () => {
 const p1 = new Test1Class();
 //const p = new Test2Class();
 
-function testExit(...nu: any) {
+function testExit(...nu) {
   ni(nu)
-  ttni.shSuffix();
+  ttni.shAt();
 
   //process.exit()
 
@@ -99,12 +104,26 @@ function testExit(...nu: any) {
 }
 testExit(['exit no', true]);
 ttni.shTimer();
-
+ttni.shStack();
 ```
 # console.log:
 ```js
- ->testExit(exit no,true)
-getError { fn: 'testExit ', caller: 'ModuleJob.run ' }
+  ->testExit(exit no,true)
+items at: {
+  fn: 'testExit ',
+  caller: 'ModuleJob.run ',
+  file: 'file:///J:/group-ttni/sample-ttni/index.js'
+}
   <-testExit()
-:47 ms
+:76 ms
+stack= Error
+    at TTNI.ne (J:\group-ttni\sample-ttni\node_modules\ttni\dist\index.js:295:46)
+    at testExit (file:///J:/group-ttni/sample-ttni/index.js:77:3)
+    at file:///J:/group-ttni/sample-ttni/index.js:80:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:185:25)
+    at async Promise.all (index 0)
+    at async ESMLoader.import (node:internal/modules/esm/loader:281:24)
+    at async loadESM (node:internal/process/esm_loader:88:5)
+    at async handleMainPromise (node:internal/modules/run_main:65:12)
+
   ```
